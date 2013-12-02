@@ -1,0 +1,153 @@
+<html>
+<head>
+	<title>
+		Prototype Card Generator
+	</title>
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="jquery.parse.js"></script>
+    <style>
+        img {
+            max-width:100%;
+            max-height:100%;
+        }
+        .page {
+            width: 648px;
+            height: 864px;
+            margin: 0px;
+            padding 0px;
+            page-break-after: always;
+        }
+
+        .row {
+            width: 648px;
+            height: 286px;
+            margin: 0px;
+            padding 0px;
+            position: relative;
+        }
+        .card {
+            width: 214px;
+            height: 286px;
+            margin: 0px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+<div id="csvFileLabel">CSV File: 
+    <input type="file" id="files" name="files[]" />
+</div>
+<div id="cssFileLabel">CSS File:
+    <input type="file" id="cssfile" name="css" />
+</div>
+    
+    
+    
+<script>
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    /// Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          
+          var results = $.parse(e.target.result, {
+                                delimiter: ",",
+                                header: true,
+                                dynamicTyping: true
+                            });
+          
+
+          layoutCards(results);
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsText(f);
+    }
+  }
+
+  function handleCSSSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    for (var i = 0, f; f = files[i]; i++) {
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          $('head').append('<style>' + e.target.result + '</style>');
+          $("#cssFileLabel").remove();
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsText(f);
+    }
+  }
+
+  function layoutCards(results) {
+    $( "#csvFileLabel" ).remove();
+    $( "#list" ).remove();
+    $( "#fields" ).remove();
+    if (results.errors.length !== 0) { 
+        alert("There were errors in your csv file.") 
+    };
+    
+
+    var row;
+    var card;
+    var page;
+    var cards = results.results.rows;
+    var numOfRows = cards.length/3 +1;
+    var pages = cards.length/9 + 1;
+
+    for (var i = 0; i < pages; i++) {
+        
+    };
+
+
+    
+    for (var i=0; i < numOfRows; i++) {
+      if (i%3===0) {
+        page = document.createElement('div');
+        document.body.appendChild(page);
+        page.setAttribute('class', 'page');
+      };
+      row = document.createElement('div');
+      row.setAttribute('class', 'row');
+      page.appendChild(row);
+      for (var j=0; j < 3; j++) {
+        var cardResult = cards[(i*3)+j];
+        if (!cardResult) { return };
+        card = document.createElement('div');
+        card.setAttribute('class', 'card');
+        card.style.left = j*216 + "px";
+        for (var k = 0; k < results.results.fields.length; k++) {
+            var cardElement = document.createElement('div');
+            var field = results.results.fields[k];
+            cardElement.setAttribute('class', results.results.fields[k]);
+            cardElement.innerHTML = cardResult[field];
+            card.appendChild(cardElement);
+        };
+        row.appendChild(card);
+      }
+    }
+
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  document.getElementById('cssfile').addEventListener('change', handleCSSSelect, false);
+</script>
+</body>
+</html>
