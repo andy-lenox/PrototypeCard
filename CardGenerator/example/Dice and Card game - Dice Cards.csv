@@ -1,0 +1,19 @@
+Number,Type,Effect,Cost,Tags
+1,Shared die,Gain +1 die roll token,1g,Starting Space
+1,My die,Gain 2g,2g,
+2,Any,Gain 1g,1g,
+2,Shared die,Gain 2 reroll marker,1g,
+3,Any,Gain 1g,2g,
+3,Shared die,Starting Space: Gain 2g,1g,Starting Space
+4,One die,Gain +1 die roll token and 2 gold,3g,
+4,Any,Gain +1 die roll token and 1 gold,5g,
+5,My die,Gain 5g,3g,
+5,Any,Gain 3g,5g,
+6,Any,Gain 1 cube. Remove one from this card.,5g,Starting Space
+6,One die,Remove another players cube from a space where you have a cube,3g,
+7,Any,Take 2g from another player,6g,
+8,Any,"Score 1 pts, remove your cube",3g,
+9,Any,"Score 2 pts, remove your cube",4g,
+10,Any,Remove all other cubes here when placing. Gain 1pt,4g,
+11 / 12,Any,"Score 1 pts, gain 2 gold, remove your cube",4g,
+12,Any,Place 2 extra free cubes here when you place a cube. Score 3pts. Remove one cube.,5g,

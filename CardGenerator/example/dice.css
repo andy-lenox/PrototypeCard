@@ -1,0 +1,31 @@
+.Number {
+    text-align: center;
+    font-size: x-large;
+    font-family: Helvetica;
+}
+.Type {
+    text-align: center;
+    font-family: Helvetica;
+}
+.Effect {
+    position: absolute;
+    top: 100px;
+    padding: 5px;
+    font-family: Helvetica;
+}
+
+.Cost {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    font-family: Helvetica;
+}
+.Cost:before {
+    content: "Cost: ";
+}
+.Tags {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-family: Helvetica;
+}
